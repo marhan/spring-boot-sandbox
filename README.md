@@ -1,2 +1,5 @@
-# spring-boot-sandbox
-My sandbox project for spring boot
+# My sandbox project for spring boot
+
+There is nothing to see, yet.
+
+
