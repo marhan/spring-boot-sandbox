@@ -100,9 +100,8 @@ test {
 }
 
 tomcat {
-    httpPort = 8090
-    httpsPort = 8091
-    contextPath = 'api'
+    httpPort = 12345
+    contextPath = '/api'
 
 }
 

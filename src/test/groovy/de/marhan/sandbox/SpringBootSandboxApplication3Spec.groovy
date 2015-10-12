@@ -8,11 +8,11 @@ import spock.lang.Specification
 
 class SpringBootSandboxApplication3Spec extends Specification {
 
-    public static final String APPLICATION_ADDRESS = "http://localhost:8090/api"
+    public static final String APPLICATION_ADDRESS = "http://localhost:12345/api"
 
     void "should return Greetings from Spring Boot!"() {
         when:
-        ResponseEntity entity = new RestTemplate().getForEntity("http://localhost:8090/api", String.class)
+        ResponseEntity entity = new RestTemplate().getForEntity(APPLICATION_ADDRESS, String.class)
 
         then:
         entity.statusCode == HttpStatus.OK
