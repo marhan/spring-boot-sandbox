@@ -4,10 +4,13 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE')
+
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
     }
 }
 
@@ -16,6 +19,9 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.bmuschko.tomcat'
+apply plugin: 'war'
+
 
 jar {
     baseName = 'spring-boot-sandbox'
@@ -31,14 +37,22 @@ repositories {
 
 
 dependencies {
+
+    def tomcatVersion = '8.0.27'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+
+
+
     compile 'org.codehaus.groovy:groovy-all'
-    compile('org.springframework.boot:spring-boot-starter-web') {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    compile('org.springframework.boot:spring-boot-starter-jetty')
+    compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    //        {
+     //   exclude group: 'org.slf4j', module: 'slf4j-api'
+    //}
     runtime('org.hsqldb:hsqldb')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
@@ -58,4 +72,41 @@ eclipse {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.7'
 }
+
+ext {
+    tomcatStopPort = 8081
+    tomcatStopKey = 'stopKey'
+}
+
+task integrationTomcatRun(type: com.bmuschko.gradle.tomcat.tasks.TomcatRun) {
+    stopPort = tomcatStopPort
+    stopKey = tomcatStopKey
+    daemon = true
+}
+
+task integrationTomcatStop(type: com.bmuschko.gradle.tomcat.tasks.TomcatStop) {
+    stopPort = tomcatStopPort
+    stopKey = tomcatStopKey
+}
+
+task integrationTest(type: Test) {
+    include '**/*Spec.*'
+    dependsOn integrationTomcatRun
+    finalizedBy integrationTomcatStop
+}
+
+test {
+    exclude '**/*Spec.*'
+}
+
+tomcat {
+    httpPort = 8090
+    httpsPort = 8091
+    contextPath = 'api'
+
+}
+
+//tomcatRun.contextPath = '/api'
+//tomcatRunWar.contextPath = '/api'
+
 
