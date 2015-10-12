@@ -26,7 +26,6 @@ class SpringBootSandboxApplication3Spec extends Specification {
         then:
         entity.statusCode == HttpStatus.OK
         entity.body == "{\"status\":\"UP\"}"
-        //entity.body == "bla"
 
     }
 
