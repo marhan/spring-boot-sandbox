@@ -11,7 +11,7 @@ Not working!
 
 ## java-gradle
 
-A working Spring Boot application with Unit and Spock tests.
+[Spring Boot](http://projects.spring.io/spring-boot/) application with [JUnit](http://junit.org/) unit tests and [Spock](https://code.google.com/p/spock/) integration tests.
 
 ## java-maven
 
