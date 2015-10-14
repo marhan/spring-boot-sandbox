@@ -1,6 +1,4 @@
-# My repository for experimental work with Spring Boot
-
-To stand on shoulders of giants, i need some shoulders.
+# Experiments with Spring Boot
 
 The code in this repository is influenced by the work of others:
 
