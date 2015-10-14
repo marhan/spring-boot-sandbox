@@ -9,8 +9,6 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE')
-
-        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
     }
 }
 
@@ -19,8 +17,6 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'com.bmuschko.tomcat'
-apply plugin: 'war'
 
 
 jar {
@@ -28,36 +24,42 @@ jar {
     version = '0.0.1-SNAPSHOT'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 repositories {
     mavenCentral()
 }
 
+sourceSets {
+    integrationTest {
+        groovy {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/groovy')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
 
 dependencies {
-
-    def tomcatVersion = '8.0.27'
-    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
-            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
-
-
 
     compile 'org.codehaus.groovy:groovy-all'
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    //        {
-     //   exclude group: 'org.slf4j', module: 'slf4j-api'
-    //}
     runtime('org.hsqldb:hsqldb')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('com.jayway.jsonpath:json-path')
     testCompile("junit:junit")
-    testCompile "org.spockframework:spock-core"
+    testCompile 'org.spockframework:spock-core'
+    integrationTestCompile 'org.spockframework:spock-core'
+    integrationTestCompile 'org.spockframework:spock-spring'
+    integrationTestCompile 'org.springframework:spring-test'
 }
 
 
@@ -68,43 +70,20 @@ eclipse {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.7'
-}
-
-ext {
-    tomcatStopPort = 8081
-    tomcatStopKey = 'stopKey'
-}
-
-task integrationTomcatRun(type: com.bmuschko.gradle.tomcat.tasks.TomcatRun) {
-    stopPort = tomcatStopPort
-    stopKey = tomcatStopKey
-    daemon = true
-}
-
-task integrationTomcatStop(type: com.bmuschko.gradle.tomcat.tasks.TomcatStop) {
-    stopPort = tomcatStopPort
-    stopKey = tomcatStopKey
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
 }
 
 task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
     include '**/*Spec.*'
-    dependsOn integrationTomcatRun
-    finalizedBy integrationTomcatStop
+    systemProperty 'spring.profiles.active', 'integration'
+    outputs.upToDateWhen { false }
 }
 
-test {
-    exclude '**/*Spec.*'
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
 }
-
-tomcat {
-    httpPort = 12345
-    contextPath = '/api'
-
-}
-
-//tomcatRun.contextPath = '/api'
-//tomcatRunWar.contextPath = '/api'
 
 

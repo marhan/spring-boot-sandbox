@@ -1,18 +1,16 @@
 package de.marhan.sandbox
 
 import de.marhan.sandbox.domain.City
+import org.springframework.boot.test.TestRestTemplate
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
-import spock.lang.Specification
 
-class SpringBootSandboxApplication3Spec extends Specification {
-
-    public static final String APPLICATION_ADDRESS = "http://localhost:12345/api"
+class SpringBootSandboxApplication3Spec extends RestIntegrationBase {
 
     void "should return Greetings from Spring Boot!"() {
         when:
-        ResponseEntity entity = new RestTemplate().getForEntity(APPLICATION_ADDRESS, String.class)
+        ResponseEntity entity = new TestRestTemplate().getForEntity(serviceURI(), String.class)
 
         then:
         entity.statusCode == HttpStatus.OK
@@ -21,7 +19,7 @@ class SpringBootSandboxApplication3Spec extends Specification {
     void "should find application up an runnning"() {
         when:
         ResponseEntity entity = new RestTemplate()
-                .getForEntity(APPLICATION_ADDRESS + "/health", String.class)
+                .getForEntity(serviceURI("/health"), String.class)
 
         then:
         entity.statusCode == HttpStatus.OK
@@ -31,7 +29,7 @@ class SpringBootSandboxApplication3Spec extends Specification {
 
     void "should find city resource"() {
         when:
-        City city = new RestTemplate().getForObject(APPLICATION_ADDRESS + "/cities/2", City)
+        City city = new RestTemplate().getForObject(serviceURI("/cities/2"), City)
 
         then:
         with(city) {
