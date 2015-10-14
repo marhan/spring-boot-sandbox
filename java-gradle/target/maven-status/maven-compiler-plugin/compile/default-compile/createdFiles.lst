@@ -1,0 +1,6 @@
+de/marhan/sandbox/service/CitySearchCriteria.class
+de/marhan/sandbox/SpringBootSandboxApplication.class
+de/marhan/sandbox/domain/Hotel.class
+de/marhan/sandbox/domain/City.class
+de/marhan/sandbox/service/CityRepository.class
+de/marhan/sandbox/service/HotelRepository.class
