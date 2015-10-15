@@ -3,18 +3,23 @@ package mr.f
 import mr.f.domain.Address
 import mr.f.domain.Person
 import spock.lang.Specification
+import spock.lang.Subject
 
+@Mock(Person)
 class PersonControllerSpec extends Specification {
 
-    private PersonRepository repository = Mock(PersonRepository)
-    private PersonController controller = new PersonController(repository: repository)
-    private Person testPerson = new Person(firstName: "John", lastName: "Doe", address: new Address(planet: "Earth"))
+    @Subject
+    def controller = new PersonController()
+    def testPerson = new Person(firstName: "John", lastName: "Doe", address: new Address(planet: "Earth"))
+
 
     def "GetPersonById with existing id returns Person object"() {
         when:
+        GrailsMock personMockControl = mockFor(Person)
+        personMockControl.demand.static.findById() { String id -> new Person(firstName:"John", lastName:"Doe") }
         Person result = controller.getPersonById("1234")
         then:
-        1 * repository.findOne("1234") >> testPerson
+        1 * Person.findById("1234") >> testPerson
         with(result) {
             firstName == "John"
             lastName == "Doe"
@@ -25,7 +30,7 @@ class PersonControllerSpec extends Specification {
         when:
         Person result = controller.getPersonById("XXXX")
         then:
-        1 * repository.findOne("XXXX") >> null
+        1 * Person.findById("XXXX") >> null
         result == null
     }
 
@@ -36,7 +41,7 @@ class PersonControllerSpec extends Specification {
         when:
         controller.createPerson(testPerson)
         then:
-        1 * repository.save({ Person p -> (capturedPerson = p).id == null })
+        1 * person.save({ Person p -> (capturedPerson = p).id == null })
         capturedPerson.firstName == "John"
     }
 
@@ -46,6 +51,6 @@ class PersonControllerSpec extends Specification {
         when: "is updated using id parameter 'abcd'"
         controller.updatePerson("abcd", testPerson)
         then: "person gets stored with id 'abcd'"
-        1 * repository.save({ Person p -> p.id == "abcd" })
+        1 * testPerson.save({ Person p -> p.id == "abcd" })
     }
 }
