@@ -62,6 +62,7 @@ dependencies {
     integrationTestCompile 'org.spockframework:spock-core'
     integrationTestCompile 'org.spockframework:spock-spring'
     integrationTestCompile 'org.springframework:spring-test'
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
 }
 
 

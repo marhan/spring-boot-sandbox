@@ -1,6 +1,6 @@
 server:
   contextPath: /api01
-  port: 12111
+  port: 11111
 spring:
   datasource:
     url: jdbc:hsqldb:mem:api01DB

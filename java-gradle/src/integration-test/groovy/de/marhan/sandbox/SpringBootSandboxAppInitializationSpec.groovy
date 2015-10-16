@@ -1,14 +1,13 @@
 package de.marhan.sandbox
 
-import de.marhan.sandbox.domain.City
 import org.springframework.boot.test.TestRestTemplate
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 
-class SpringBootSandboxApplication3Spec extends RestIntegrationBase {
+class SpringBootSandboxAppInitializationSpec extends RestIntegrationBase {
 
-    void "should return Greetings from Spring Boot!"() {
+    void "should find app"() {
         when:
         ResponseEntity entity = new TestRestTemplate().getForEntity(serviceURI(), String.class)
 
@@ -16,7 +15,7 @@ class SpringBootSandboxApplication3Spec extends RestIntegrationBase {
         entity.statusCode == HttpStatus.OK
     }
 
-    void "should find application up an runnning"() {
+    void "should find application up an running"() {
         when:
         ResponseEntity entity = new RestTemplate()
                 .getForEntity(serviceURI("/health"), String.class)
@@ -27,16 +26,13 @@ class SpringBootSandboxApplication3Spec extends RestIntegrationBase {
 
     }
 
-    void "should find city resource"() {
+    void "should find application metrics"() {
         when:
-        City city = new RestTemplate().getForObject(serviceURI("/cities/2"), City)
+        ResponseEntity entity = new RestTemplate()
+                .getForEntity(serviceURI("/metrics"), String.class)
 
         then:
-        with(city) {
-            name == "Melbourne"
-            state == "Victoria"
-            country == "Australia"
-        }
+        entity.statusCode == HttpStatus.OK
     }
 
 }
