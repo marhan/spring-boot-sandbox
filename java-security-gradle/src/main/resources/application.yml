@@ -1,0 +1,6 @@
+server:
+  contextPath: /api05
+  port: 15111
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:apiDB
