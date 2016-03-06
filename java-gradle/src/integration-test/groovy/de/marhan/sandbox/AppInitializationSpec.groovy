@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 
-class SpringBootSandboxAppInitializationSpec extends RestIntegrationBase {
+class AppInitializationSpec extends RestIntegrationBase {
 
     void "should find app"() {
         when:

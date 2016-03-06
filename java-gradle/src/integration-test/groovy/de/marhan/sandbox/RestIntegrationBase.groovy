@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 import spock.lang.Stepwise
 
-@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = [SpringBootSandboxApplication.class])
+@ContextConfiguration(loader = SpringApplicationContextLoader.class, classes = [Application.class])
 @WebIntegrationTest
 @Stepwise
 @IntegrationTest("server.port:0")
@@ -17,7 +17,7 @@ class RestIntegrationBase extends Specification {
     @Value('${local.server.port}')
     int port
 
-    String getBasePath() { "api02" }
+    String getBasePath() { "api" }
 
     URI serviceURI(String path = "") {
         new URI("http://localhost:$port/${basePath}${path}")

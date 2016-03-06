@@ -1,6 +1,6 @@
 package de.marhan.sandbox.service;
 
-import de.marhan.sandbox.SpringBootSandboxApplication;
+import de.marhan.sandbox.Application;
 import de.marhan.sandbox.domain.City;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SpringBootSandboxApplication.class)
+@SpringApplicationConfiguration(classes = Application.class)
 public class CityRepositoryIntegrationTests {
 
     @Autowired
