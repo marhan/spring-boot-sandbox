@@ -57,3 +57,5 @@ Language for Application: Java
 Persistence: Hibernate
 Database Instance: MySQL
 Build Tool: Maven (Tomcat Plugin)
+
+Link to app after start: http://localhost:8080/home
