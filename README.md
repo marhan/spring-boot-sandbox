@@ -59,3 +59,19 @@ Database Instance: MySQL
 Build Tool: Maven (Tomcat Plugin)
 
 Link to app after start: http://localhost:8080/home
+
+## java-rest-repo
+
+Language for Application: Java
+Persistence: Hibernate
+Functional Tests: JUnit
+Database Instance: H2 (InMemory)
+Build Tool: Gradle
+
+### Rest calls
+
+Find all entries: ```curl http://localhost:8082/rest/demoResources```
+
+Create new entry: ```curl -i -X POST -H "Content-Type:application/json" -d '{  "content" : "blabla" }' http://localhost:8082/rest/demoResources```
+
+Search entry: ```curl http://localhost:8082/rest/demoResources/search/findByContent?content=SOME_CONTENT```
