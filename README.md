@@ -48,3 +48,12 @@ Persistence: Hibernate
 Integration Tests: Spock
 Database Instance: HSQLDB
 Build Tool: Maven (Tomcat Plugin)
+
+## spring-data-rest-angular
+
+Taken from this [Tutorial](http://www.programming-free.com/2014/07/spring-data-rest-with-angularjs-crud.html).
+
+Language for Application: Java
+Persistence: Hibernate
+Database Instance: MySQL
+Build Tool: Maven (Tomcat Plugin)
