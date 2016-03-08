@@ -33,9 +33,10 @@ class CitiesRestSpec extends RestIntegrationBase {
         }
     }
 
-    void "should find searched city"() {
+    void "should find searched city resource"() {
         when:
-        City city = new RestTemplate().getForObject(serviceURI("/cities/search/findByNameAndCountryAllIgnoringCase?name=Melbourne&country=Australia"), City)
+        def path = "/cities/search/findByNameAndCountryAllIgnoringCase?name=Melbourne&country=Australia"
+        City city = new RestTemplate().getForObject(serviceURI(path), City)
 
         then:
         with(city) {
