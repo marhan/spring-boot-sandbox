@@ -68,10 +68,16 @@ Functional Tests: JUnit
 Database Instance: H2 (InMemory)
 Build Tool: Gradle
 
-### Rest calls
+### Interaction
 
-Find all entries: ```curl http://localhost:8082/rest/demoResources```
+#### Find all entries 
 
-Create new entry: ```curl -i -X POST -H "Content-Type:application/json" -d '{  "content" : "blabla" }' http://localhost:8082/rest/demoResources```
+```curl http://localhost:8082/rest/demoResources```
 
-Search entry: ```curl http://localhost:8082/rest/demoResources/search/findByContent?content=SOME_CONTENT```
+#### Create new entry 
+
+```curl -i -X POST -H "Content-Type:application/json" -d '{  "content" : "blabla" }' http://localhost:8082/rest/demoResources```
+
+#### Search entry
+
+```curl http://localhost:8082/rest/demoResources/search/findByContent?content=SOME_CONTENT```
