@@ -7,19 +7,19 @@ The code in this repository is influenced by the work of others:
 
 ## groovy-gradle (Not working!)
 
-Language for Application: Groovy
-Persistence: MongoDB
-Integration Tests: Spock
-Database Instance: Docker
-Build Tool: Gradle
+- Language for Application: Groovy
+- Persistence: MongoDB
+- Integration Tests: Spock
+- Database Instance: Docker
+- Build Tool: Gradle
 
 ## groovy-security-gradle (Not working!)
 
-Language for Application: Groovy
-Persistence: Gorm
-Integration Tests: Spock
-Database Instance: HSQLDB
-Build Tool: Gradle
+- Language for Application: Groovy
+- Persistence: Gorm
+- Integration Tests: Spock
+- Database Instance: HSQLDB
+- Build Tool: Gradle
 
 ```Could not find io.projectreactor:reactor-stream:2.0.0.RELEASE.
 Searched in the following locations:
@@ -33,40 +33,42 @@ Required by:
 
 ## java-gradle
 
-Language for Application: Java
-Persistence: Hibernate
-Integration Tests: Spock
-Database Instance: HSQLDB
-Build Tool: Gradle
+- Language for Application: Java
+- Persistence: Hibernate
+- Integration Tests: Spock
+- Database Instance: HSQLDB
+- Build Tool: Gradle
 
 [Spring Boot](http://projects.spring.io/spring-boot/) application with [JUnit](http://junit.org/) unit tests and [Spock](https://code.google.com/p/spock/) integration tests.
 
 ## java-maven (Not working!)
 
-Language for Application: Java
-Persistence: Hibernate
-Integration Tests: Spock
-Database Instance: HSQLDB
-Build Tool: Maven (Tomcat Plugin)
+- Language for Application: Java
+- Persistence: Hibernate
+- Integration Tests: Spock
+- Database Instance: HSQLDB
+- Build Tool: Maven (Tomcat Plugin)
 
 ## spring-data-rest-angular
 
 Taken from this [Tutorial](http://www.programming-free.com/2014/07/spring-data-rest-with-angularjs-crud.html).
 
-Language for Application: Java
-Persistence: Hibernate
-Database Instance: MySQL
-Build Tool: Maven (Tomcat Plugin)
+- Language for Application: Java
+- Persistence: Hibernate
+- Database Instance: MySQL
+- Build Tool: Maven (Tomcat Plugin)
 
-Link to app after start: http://localhost:8080/home
+### Interaction 
+
+http://localhost:8080/home
 
 ## java-rest-repo
 
-Language for Application: Java
-Persistence: Hibernate
-Functional Tests: JUnit
-Database Instance: H2 (InMemory)
-Build Tool: Gradle
+- Language for Application: Java
+- Persistence: Hibernate
+- Functional Tests: JUnit
+- Database Instance: H2 (InMemory)
+- Build Tool: Gradle
 
 ### Interaction
 
